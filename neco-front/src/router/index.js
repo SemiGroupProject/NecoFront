@@ -39,6 +39,22 @@ const routes = [
   {
     path: "/itemSell",
     component: () => import("@/pages/ItemSellPage.vue")
+  },
+  {
+    path: "/notice",
+    component: () => import("@/pages/NoticePage.vue")
+  },
+  {
+    path: "/adinquiry",
+    component: () => import("@/pages/AdinquiryPage.vue")
+  },
+  {
+    path: "/policy",
+    component: () => import("@/pages/PolicyPage.vue")
+  },
+  {
+    path: "/question",
+    component: () => import("@/pages/QuestionPage.vue")
   }
 ];
 
