@@ -20,9 +20,13 @@ export default {
   },
   computed: {
     noBar() {
-      return !["/signIn", "/signUp", "/findPassword", "myInfo"].includes(
-        this.$route.path
-      );
+      return ![
+        "/signIn",
+        "/signUp",
+        "/findPassword",
+        "/myInfo",
+        "/policy"
+      ].includes(this.$route.path);
     }
   }
 };
