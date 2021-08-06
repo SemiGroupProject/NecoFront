@@ -1,10 +1,11 @@
 <template>
   <v-app>
-    <top-bar v-if="noBar" />
+    <top-bar v-if="isBar" />
     <v-main>
-      <router-view />
+      <router-view v-if="isBar" style="margin: 0 12.5%" />
+      <router-view v-if="!isBar" />
     </v-main>
-    <bottom-bar v-if="noBar" />
+    <bottom-bar v-if="isBar" />
   </v-app>
 </template>
 
@@ -19,7 +20,7 @@ export default {
     BottomBar
   },
   computed: {
-    noBar() {
+    isBar() {
       return ![
         "/signIn",
         "/signUp",
