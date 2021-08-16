@@ -1,11 +1,18 @@
 <template>
-    <div>list</div>
+  <v-card style="width: 200px; height: 250px">
+    <v-img
+      style="width: 200px; height: 170px"
+      :src="require('@/assets/images/banner/banner1.png')"
+    />
+
+    <v-card-title> 상품 제목 </v-card-title>
+
+    <v-card-subtitle> 1,400,000원 </v-card-subtitle>
+  </v-card>
 </template>
 <script>
 export default {
-    name: '',
-}
+  name: '',
+};
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>
