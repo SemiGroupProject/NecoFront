@@ -1,8 +1,10 @@
 <template>
   <div>
-    <LayoutHeader/>
-    <Nuxt/>
-    <LayoutFooter/>
+    <v-container class="main_container">
+      <LayoutHeader style="max-width: 100%"/>
+      <Nuxt/>
+      <LayoutFooter/>
+    </v-container>
   </div>
 </template>
 
@@ -18,3 +20,11 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.main_container {
+  margin: 0;
+  padding: 0;
+  min-width: 100%;
+}
+</style>
