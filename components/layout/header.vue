@@ -5,16 +5,20 @@
         <v-btn class="font-weight-bold" small text href="/signIn"
           >로그인/회원가입</v-btn
         >
-            <v-btn class="font-weight-bold" small text href="/myStore"
-            >내상점</v-btn
-            >
+        <v-btn class="font-weight-bold" small text href="/myStore"
+          >내상점</v-btn
+        >
       </v-col>
     </v-row>
     <v-row class="top-item second mt-10" justify="center">
       <v-col cols="12">
         <v-row>
           <v-col cols="2">
-            <v-img :src="require('@/assets/images/logo/logo.png')" max-width="150" max-height="35" />
+            <v-img
+              :src="require('@/assets/images/logo/logo.png')"
+              max-width="150"
+              max-height="35"
+            />
           </v-col>
           <v-col cols="7">
             <div class="search">

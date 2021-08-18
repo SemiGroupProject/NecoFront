@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-container class="main_container">
-      <LayoutHeader style="max-width: 100%"/>
-      <Nuxt/>
-      <LayoutFooter/>
+      <LayoutHeader style="max-width: 100%" />
+      <Nuxt />
+      <LayoutFooter />
     </v-container>
   </div>
 </template>
