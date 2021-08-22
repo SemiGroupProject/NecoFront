@@ -2,17 +2,17 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    node: true,
+    node: true
   },
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: 'babel-eslint'
   },
   extends: [
     '@nuxtjs',
     'prettier',
     'plugin:prettier/recommended',
     'plugin:nuxt/recommended',
-    'eslint:recommended',
+    'eslint:recommended'
   ],
   plugins: ['prettier'],
   // add your custom rules here
@@ -30,8 +30,8 @@ module.exports = {
         trailingComma: 'all',
         printWidth: 80,
         bracketSpacing: true,
-        arrowParens: 'avoid',
-      },
+        arrowParens: 'avoid'
+      }
     ],
     // 0 = off, 1 = warn, 2 = error
     'nuxt/no-this-in-fetch-data': 1,
@@ -46,6 +46,6 @@ module.exports = {
     'no-unused-vars': 1,
     'no-console': process.env.NODE_ENV === 'production' ? 'warning' : 'off',
     'vue/no-side-effects-in-computed-properties': 1,
-    'no-lonely-if': 1,
-  },
+    'no-lonely-if': 1
+  }
 };
