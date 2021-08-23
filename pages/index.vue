@@ -18,8 +18,8 @@
   </div>
 </template>
 <script>
-import CardBanner from '~/components/home/cardBanner.vue';
-import List from '~/components/home/list.vue';
+import CardBanner from '~/components/home/CardBanner.vue';
+import List from '~/components/home/HomeProductList.vue';
 
 export default {
   name: 'MainPage',
