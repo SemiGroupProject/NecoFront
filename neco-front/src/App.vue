@@ -22,7 +22,7 @@ export default {
   computed: {
     isBar() {
       return ![
-        "/signIn",
+        "/logIn",
         "/signUp",
         "/findPassword",
         "/myInfo",
