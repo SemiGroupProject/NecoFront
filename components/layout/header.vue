@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row class="top-item first text-end" justify="center">
       <v-col cols="9">
-        <v-btn class="font-weight-bold" small text href="/signIn"
+        <v-btn class="font-weight-bold" small text href="/logIn" to="/login"
           >로그인/회원가입</v-btn
         >
         <v-btn class="font-weight-bold" small text href="/myStore"
