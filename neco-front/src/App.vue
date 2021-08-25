@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import TopBar from "@/components/TopBar.vue";
-import BottomBar from "@/components/BottomBar.vue";
+import TopBar from '@/components/TopBar.vue';
+import BottomBar from '@/components/BottomBar.vue';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     TopBar,
     BottomBar
@@ -22,11 +22,11 @@ export default {
   computed: {
     isBar() {
       return ![
-        "/logIn",
-        "/signUp",
-        "/findPassword",
-        "/myInfo",
-        "/policy"
+        '/logIn',
+        '/signUp',
+        '/findPassword',
+        '/myInfo',
+        '/policy'
       ].includes(this.$route.path);
     }
   }
