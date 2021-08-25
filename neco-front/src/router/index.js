@@ -10,15 +10,19 @@ const routes = [
   },
   {
     path: '/LogIn',
-    component: () => import('@/pages/LogInPage.vue')
+    component: () => import('@/pages/user/LogInPage.vue')
   },
   {
     path: '/signUp',
-    component: () => import('@/pages/SignUpPage.vue')
+    component: () => import('@/pages/user/SignUpPage.vue')
+  },
+  {
+    path: '/findId',
+    component: () => import('@/pages/user/FindIdPage.vue')
   },
   {
     path: '/findPassword',
-    component: () => import('@/pages/FindPasswordPage.vue')
+    component: () => import('@/pages/user/FindPasswordPage.vue')
   },
   {
     path: '/itemManagement',
@@ -30,7 +34,7 @@ const routes = [
   },
   {
     path: '/myInfo',
-    component: () => import('@/pages/MyInfoPage.vue')
+    component: () => import('@/pages/user/MyInfoPage.vue')
   },
   {
     path: '/myStore',
