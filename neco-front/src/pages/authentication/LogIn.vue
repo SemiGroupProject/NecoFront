@@ -30,9 +30,9 @@
         >
       </v-col>
       <v-col cols="12" align="center">
-        <v-btn text href="/findId">아이디 찾기</v-btn> |
-        <v-btn text href="/logIn">비밀번호 찾기</v-btn> |
-        <v-btn text href="/signUp">회원 가입</v-btn>
+        <v-btn text href="/find-id">아이디 찾기</v-btn> |
+        <v-btn text href="/log-in">비밀번호 찾기</v-btn> |
+        <v-btn text href="/sign-up">회원 가입</v-btn>
       </v-col>
       <v-col>
         <v-btn outlined large block>Sign in with Google</v-btn>

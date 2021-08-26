@@ -2,10 +2,10 @@
   <v-container fluid>
     <v-row class="top-item first text-end" justify="center">
       <v-col cols="9">
-        <v-btn class="font-weight-bold" small text href="/logIn"
+        <v-btn class="font-weight-bold" small text href="/log-in"
           >로그인/회원가입</v-btn
         >
-        <v-btn class="font-weight-bold" small text href="/myStore"
+        <v-btn class="font-weight-bold" small text href="/my-store"
           >내상점</v-btn
         >
       </v-col>
@@ -26,15 +26,15 @@
             </div>
           </v-col>
           <v-col class="text-end">
-            <v-btn text href="/itemSell">
+            <v-btn text href="/item-sell">
               <v-icon>mdi-store-plus</v-icon>
               판매하기
             </v-btn>
-            <v-btn text href="/myStore">
+            <v-btn text href="/my-store">
               <v-icon>mdi-account-circle-outline</v-icon>
               내상점
             </v-btn>
-            <v-btn text href="/itemManagement">
+            <v-btn text href="/item-management">
               <v-icon>mdi-archive</v-icon>
               상품관리
             </v-btn>
