@@ -15,6 +15,7 @@
         <v-row>
           <v-col cols="2">
             <v-img
+              to="/index"
               :src="require('@/assets/images/logo/logo.png')"
               max-width="150"
               max-height="35"
@@ -23,6 +24,7 @@
           <v-col cols="7">
             <div class="search">
               <input
+                v-model="searchWords"
                 class="search-text"
                 type="text"
                 placeholder="상품명, 지역명 검색"
@@ -49,10 +51,27 @@
     <v-row class="top-item third" justify="center">
       <v-col cols="12">
         <v-row>
-          <v-toolbar elevation="0">
-            <v-app-bar-nav-icon color="#7429ff"></v-app-bar-nav-icon>
-            <v-toolbar-title>전체메뉴 보기</v-toolbar-title>
-          </v-toolbar>
+          <v-menu>
+            <template #activator="{ on, attrs }">
+              <v-toolbar elevation="0">
+                <v-app-bar-nav-icon
+                  color="#7429ff"
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-app-bar-nav-icon>
+                <v-toolbar-title>전체메뉴 보기</v-toolbar-title>
+              </v-toolbar>
+            </template>
+            <v-list
+              v-for="(item, index) in category"
+              :key="index"
+              :light="true"
+            >
+              <v-list-item :to="`/item/${item.name}/1`">
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </v-row>
       </v-col>
     </v-row>
@@ -60,10 +79,28 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'Header',
+  components: {},
+  filters: {},
+  data: () => ({
+    searchWords: '',
+    category: [
+      { name: '의류' },
+      { name: '전자제품' },
+      { name: '잡화' },
+      { name: '생활용품' },
+    ],
+  }),
+  computed: {},
+  methods: {},
+};
 </script>
 
-<style>
+<style scoped>
+v-list-item {
+  color: black;
+}
 .top-item.first {
   height: 50px;
   border-bottom: 1px solid #eee;
@@ -89,7 +126,7 @@ export default {};
   border: 3px solid #7429ff;
 }
 .v-btn__content > .v-icon {
-  color: red;
+  color: black;
 }
 .v-toolbar__title {
   color: #7429ff;

@@ -1,9 +1,12 @@
 <template>
-  <v-carousel :src="require('@/assets/images/banner/banner1.png')">
-    <v-carousel-item v-for="item in imgList" :key="item">
-      <v-img :src="require(`@/assets/images/banner/${item}`)"> </v-img>
-    </v-carousel-item>
-  </v-carousel>
+  <v-app>
+    <v-carousel :src="require('@/assets/images/banner/banner1.png')">
+      <v-carousel-item v-for="item in imgList" :key="item">
+        <v-img :src="require(`@/assets/images/banner/${item}`)" height="450">
+        </v-img>
+      </v-carousel-item>
+    </v-carousel>
+  </v-app>
 </template>
 <script>
 export default {
