@@ -26,7 +26,8 @@ export default {
         '/signUp',
         '/findPassword',
         '/myInfo',
-        '/policy'
+        '/policy',
+        '/findId'
       ].includes(this.$route.path);
     }
   }
