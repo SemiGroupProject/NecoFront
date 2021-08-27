@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card style="width: 200px; height: 250px">
+    <v-card style="width: 200px; height: 250px" :href="`/item/${item.key}`">
       <v-img
         style="width: 200px; height: 170px"
         :src="require('@/assets/images/banner/banner1.png')"
@@ -15,6 +15,9 @@
 <script>
 export default {
   name: '',
+  props: {
+    item: { type: Object, default: null },
+  },
 };
 </script>
 <style scoped></style>

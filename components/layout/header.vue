@@ -32,15 +32,15 @@
             </div>
           </v-col>
           <v-col cols="3" class="text-end">
-            <v-btn text href="/itemSell">
+            <v-btn text to="/itemSell">
               <v-icon>mdi-store-plus</v-icon>
               판매하기
             </v-btn>
-            <v-btn text href="/myStore">
+            <v-btn text to="/myStore">
               <v-icon>mdi-account-circle-outline</v-icon>
               내상점
             </v-btn>
-            <v-btn text href="/itemManagement">
+            <v-btn text to="/itemManagement">
               <v-icon>mdi-archive</v-icon>
               상품관리
             </v-btn>

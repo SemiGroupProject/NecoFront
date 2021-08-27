@@ -13,7 +13,7 @@
           sm="6"
           style="display: flex; justify-content: center"
         >
-          <List />
+          <List :item="items" />
         </v-col>
       </v-row>
     </v-container>
@@ -28,6 +28,11 @@ export default {
   components: {
     CardBanner,
     List,
+  },
+  data() {
+    return {
+      items: { name: 'test', key: 33 },
+    };
   },
 };
 </script>
