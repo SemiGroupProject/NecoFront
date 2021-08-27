@@ -5,8 +5,10 @@
         <v-img class="ma-5" src="@/img/logo.png" max-width="150" />
       </v-col>
       <v-col cols="5" align="center">
-        <v-btn width="150" class="ma-5" outlined> 로그인 </v-btn>
-        <v-btn width="150" class="ma-5" outlined> 회원가입</v-btn>
+        <v-btn width="150" class="ma-5" outlined href="/log-in"> 로그인 </v-btn>
+        <v-btn width="150" class="ma-5" outlined href="/sign-up">
+          회원가입</v-btn
+        >
       </v-col>
     </v-row>
   </v-container>
