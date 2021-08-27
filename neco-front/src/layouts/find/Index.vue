@@ -1,18 +1,18 @@
 <template>
   <v-app>
-    <user-top-bar></user-top-bar>
+    <authentication-top-bar></authentication-top-bar>
     <v-main>
       <router-view></router-view>
     </v-main>
   </v-app>
 </template>
-
+Authentication
 <script>
-import UserTopBar from '@/components/UserTopBar.vue';
+import AuthenticationTopBar from '@/components/AuthenticationTopBar.vue';
 export default {
   name: 'FindLayout',
   components: {
-    UserTopBar
+    AuthenticationTopBar
   }
 };
 </script>
