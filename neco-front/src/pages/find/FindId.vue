@@ -24,7 +24,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      id: null,
+      password: null
+    };
+  }
+};
 </script>
 
 <style>
