@@ -2,7 +2,7 @@
   <v-app>
     <top-bar />
     <v-main>
-      <router-view style="margin: 0 12.5%" />
+      <router-view />
     </v-main>
     <bottom-bar />
   </v-app>
