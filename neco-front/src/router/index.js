@@ -29,8 +29,8 @@ const routes = [
         component: () => import('@/pages/Notice.vue')
       },
       {
-        path: '/adinquiry',
-        component: () => import('@/pages/Adinquiry.vue')
+        path: '/ad-inquiry',
+        component: () => import('@/pages/AdInquiry.vue')
       },
       {
         path: '/question',
