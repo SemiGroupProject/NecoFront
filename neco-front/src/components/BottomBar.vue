@@ -4,7 +4,7 @@
       <v-col></v-col>
       <v-col cols="9" class="d-flex justify-space-between">
         <v-btn class="font-weight-bold" text href="/notice">공지사항</v-btn>
-        <v-btn class="font-weight-bold" text href="/adinquiry">광고안내</v-btn>
+        <v-btn class="font-weight-bold" text href="/ad-inquiry">광고안내</v-btn>
         <v-btn class="font-weight-bold" text href="/policy">운영정책</v-btn>
         <v-btn class="font-weight-bold" text href="/question">문의하기</v-btn>
       </v-col>
