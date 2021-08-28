@@ -13,7 +13,9 @@
     <v-row class="bottom-item second">
       <v-col></v-col>
       <v-col cols="9" class="d-flex justify-space-between">
-        <v-img src="@/img/f_logo.png" max-width="150" max-height="35" />
+        <a href="/"
+          ><v-img src="@/img/f_logo.png" max-width="150" max-height="35"
+        /></a>
         <div>
           <p class="address">내꼬니꼬 서비스 neconicoservice@gmail.com</p>
           <p class="copyright">Copyright ⓒ NAECONICO. All rights reserved.</p>

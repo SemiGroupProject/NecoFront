@@ -14,7 +14,9 @@
       <v-col cols="9">
         <v-row>
           <v-col cols="2">
-            <v-img src="@/img/logo.png" max-width="150" max-height="35" />
+            <a href="/"
+              ><v-img src="@/img/logo.png" max-width="150" max-height="35"
+            /></a>
           </v-col>
           <v-col cols="6">
             <div class="search">
