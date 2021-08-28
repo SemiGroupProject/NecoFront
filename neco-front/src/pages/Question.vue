@@ -1,10 +1,10 @@
 <template>
   <v-main style="margin: 0 12.5%">
-    <v-contatiner>
+    <v-container>
       <h2>문의사항</h2>
       <v-img class="my-10 mx-auto" src="@/img/logo.png" max-width="300" />
       <v-img class="my-10 mx-auto" src="@/img/question.png" max-width="1000" />
-    </v-contatiner>
+    </v-container>
   </v-main>
 </template>
 

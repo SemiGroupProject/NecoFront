@@ -29,6 +29,11 @@ const routes = [
         component: () => import('@/pages/Notice.vue')
       },
       {
+        path: '/notice/:id',
+        name: 'notice-item',
+        component: () => import('@/pages/NoticeItem.vue')
+      },
+      {
         path: '/ad-inquiry',
         component: () => import('@/pages/AdInquiry.vue')
       },
