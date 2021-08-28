@@ -35,7 +35,7 @@ const routes = [
       },
       {
         path: '/ad-inquiry',
-        component: () => import('@/pages/AdInquiry.vue')
+        component: () => import('@/pages/Advertisement.vue')
       },
       {
         path: '/question',
