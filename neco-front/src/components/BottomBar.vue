@@ -1,8 +1,8 @@
 <template>
   <v-container fluid>
-    <v-row class="bottom-item first">
+    <v-row class="bottom-item first" align="center">
       <v-col></v-col>
-      <v-col cols="9" class="d-flex justify-space-between">
+      <v-col cols="9" class="d-flex justify-space-between pa-0">
         <v-btn class="font-weight-bold" text href="/notice">공지사항</v-btn>
         <v-btn class="font-weight-bold" text href="/ad-inquiry">광고안내</v-btn>
         <v-btn class="font-weight-bold" text href="/policy">운영정책</v-btn>
@@ -34,7 +34,7 @@ export default {};
   padding: 0px;
 }
 .bottom-item.first {
-  height: 50;
+  height: 41px;
 }
 .bottom-item.second {
   padding: 50px 0;

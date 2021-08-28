@@ -1,6 +1,6 @@
 <template>
   <v-main style="margin: 0 12.5%">
-    <v-container>
+    <v-container fluid>
       <h2>공지사항</h2>
       <v-data-table
         :headers="headers"
