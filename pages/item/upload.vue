@@ -31,8 +31,14 @@
     </v-row>
     <v-row align="center">
       <span class="header_name">이미지 등록</span>
-      <FileUpload>파일을 업로드 하세요.</FileUpload>
+      <FileUpload v-model="files" :drop="true">파일을 업로드 하세요.</FileUpload
+      ><span class="material-icons"> file_upload </span>
+      {{ files }}
     </v-row>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
   </v-container>
 </template>
 <script>

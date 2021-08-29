@@ -14,7 +14,13 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/icon?family=Material+Icons',
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -24,6 +30,7 @@ export default {
   plugins: [
     { src: '~/plugins/toast.js', ssr: false },
     { src: '~/plugins/fileUpload.js', ssr: false },
+    { src: '~/plugins/vuetify.js', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
