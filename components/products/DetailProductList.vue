@@ -1,10 +1,8 @@
 <template>
   <v-img
+    style="width: 240px; height: 220px"
     :src="require('@/assets/images/banner/banner1.png')"
-    height="200"
-    width="200"
-  >
-  </v-img>
+  ></v-img>
 </template>
 <script>
 export default {

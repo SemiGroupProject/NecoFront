@@ -2,10 +2,10 @@
   <v-container fluid>
     <v-row class="top-item first text-end" justify="center">
       <v-col cols="9">
-        <v-btn class="font-weight-bold" small text href="/signIn"
+        <v-btn class="font-weight-bold" small text to="/signIn"
           >로그인/회원가입</v-btn
         >
-        <v-btn class="font-weight-bold" small text href="/myStore"
+        <v-btn class="font-weight-bold" small text to="/user/myStore"
           >내상점</v-btn
         >
       </v-col>
@@ -14,12 +14,13 @@
       <v-col cols="12">
         <v-row>
           <v-col cols="2">
-            <v-img
-              to="/index"
-              :src="require('@/assets/images/logo/logo.png')"
-              max-width="150"
-              max-height="35"
-            />
+            <nuxt-link to="/">
+              <v-img
+                :src="require('@/assets/images/logo/logo.png')"
+                max-width="150"
+                max-height="35"
+              />
+            </nuxt-link>
           </v-col>
           <v-col cols="7">
             <div class="search">
@@ -32,15 +33,15 @@
             </div>
           </v-col>
           <v-col cols="3" class="text-end">
-            <v-btn text to="/itemSell">
+            <v-btn text to="/item/upload">
               <v-icon>mdi-store-plus</v-icon>
               판매하기
             </v-btn>
-            <v-btn text to="/myStore">
+            <v-btn text to="/user/myStore">
               <v-icon>mdi-account-circle-outline</v-icon>
               내상점
             </v-btn>
-            <v-btn text to="/itemManagement">
+            <v-btn text to="/user/history">
               <v-icon>mdi-archive</v-icon>
               상품관리
             </v-btn>
