@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <h1>Item</h1>
-  </div>
+  <v-main style="margin: 0 12.5%">
+    <v-container fluid>
+      <h2>item</h2>
+    </v-container>
+  </v-main>
 </template>
 
 <script>

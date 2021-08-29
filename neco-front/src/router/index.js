@@ -9,11 +9,15 @@ const routes = [
     component: () => import('@/layouts/default/Index'),
     children: [
       {
+        path: '/',
+        component: () => import('@/pages/MainRecommend.vue')
+      },
+      {
         path: '/item-management',
         component: () => import('@/pages/ItemManagement.vue')
       },
       {
-        path: '/item',
+        path: '/item/:id',
         component: () => import('@/pages/Item.vue')
       },
       {
