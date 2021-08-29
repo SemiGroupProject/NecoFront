@@ -2,7 +2,9 @@
   <v-container class="top" fluid>
     <v-row>
       <v-col cols="6" align="center">
-        <v-img class="ma-5" src="@/img/logo.png" max-width="150" />
+        <a href="/">
+          <v-img class="ma-5" src="@/img/logo.png" max-width="150" />
+        </a>
       </v-col>
       <v-col cols="5" align="center">
         <v-btn width="150" class="ma-5" outlined href="/log-in"> 로그인 </v-btn>
