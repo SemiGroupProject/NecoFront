@@ -68,7 +68,9 @@
       <v-col cols="8">
         <v-text-field v-model="postNunber" label="우편번호"></v-text-field>
       </v-col>
-      <v-col cols="4"><search-address /> </v-col>
+      <v-col cols="4">
+        <search-address v-on:searchComplete="searchAddressComplete($event)" />
+      </v-col>
       <v-col cols="12">
         <v-text-field v-model="address" label="상세주소"></v-text-field>
       </v-col>
@@ -128,6 +130,11 @@ export default {
   methods: {
     checkAgree() {
       this.agreeStatus = !this.agreeStatus;
+    },
+    searchAddressComplete(event) {
+      this.postNunber = event.zonecode;
+      this.address = event.address;
+      console.log(event);
     }
   }
 };
