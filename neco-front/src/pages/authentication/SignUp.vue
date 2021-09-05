@@ -14,6 +14,7 @@
           color="#7429ff"
           tile
           class="btn white--text font-weight-bold"
+          @click="checkDuplication()"
           >중복 확인</v-btn
         ></v-col
       >
@@ -104,7 +105,7 @@
 </template>
 
 <script>
-// import { VueDaumPostcode } from 'vue-daum-postcode';
+import { FETCH_CHECK_ID_DUPLICATION } from '@/api/index';
 import SearchAddress from '@/components/SearchAddress';
 import { signUpPolicy } from '../../static/policy.js';
 export default {
@@ -130,6 +131,10 @@ export default {
   methods: {
     checkAgree() {
       this.agreeStatus = !this.agreeStatus;
+    },
+    checkDuplication() {
+      FETCH_CHECK_ID_DUPLICATION(this.id);
+      console.log('아이디중복확인클릭');
     },
     searchAddressComplete(event) {
       this.postNunber = event.zonecode;
