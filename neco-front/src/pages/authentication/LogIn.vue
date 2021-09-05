@@ -57,6 +57,8 @@ export default {
     },
     checkLogin() {
       console.log('aaa');
+      this.$store.commit('setUserId', this.id);
+      this.$store.dispatch('TEST');
       this.loginError = true;
     }
   }
