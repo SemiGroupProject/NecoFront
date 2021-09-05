@@ -68,24 +68,11 @@
       <v-col cols="8">
         <v-text-field v-model="postNunber" label="우편번호"></v-text-field>
       </v-col>
-      <v-col cols="4"
-        ><v-btn
-          large
-          block
-          color="#7429ff"
-          tile
-          class="btn white--text font-weight-bold"
-          >주소검색</v-btn
-        ></v-col
-      >
+      <v-col cols="4"><search-address /> </v-col>
       <v-col cols="12">
         <v-text-field v-model="address" label="상세주소"></v-text-field>
       </v-col>
-      <v-card
-        outlined
-        max-height="200"
-        v-scroll.self="onScroll"
-        class="overflow-y-auto"
+      <v-card outlined max-height="200" class="overflow-y-auto"
         ><v-card-text style="white-space: pre-line"> {{ policy }} </v-card-text>
       </v-card>
       <v-col cols="12">
@@ -115,12 +102,19 @@
 </template>
 
 <script>
+// import { VueDaumPostcode } from 'vue-daum-postcode';
+import SearchAddress from '@/components/SearchAddress';
 import { signUpPolicy } from '../../static/policy.js';
 export default {
+  components: {
+    SearchAddress
+  },
   data() {
     return {
       id: null,
       password: null,
+      postNunber: null,
+      address: null,
       checkPassword: null,
       name: null,
       birth: null,
