@@ -4,10 +4,10 @@
       <v-col style="margin-top: 100px" cols="12">
         <v-img class="mx-auto" src="@/img/logo.png" max-width="300" />
       </v-col>
-      <v-col cols="8" class="pb-0">
-        <v-text-field v-model="id" label="아이디"></v-text-field>
+      <v-col cols="12" class="pb-0">
+        <v-text-field v-model="accountId" label="아이디"></v-text-field>
       </v-col>
-      <v-col cols="4"
+      <!-- <v-col cols="4"
         ><v-btn
           large
           block
@@ -17,7 +17,7 @@
           @click="checkDuplication()"
           >중복 확인</v-btn
         ></v-col
-      >
+      > -->
       <v-col class="pt-0">
         <p class="message">* 3~10자 영문 대 소문자, 숫자를 사용하세요.</p>
       </v-col>
@@ -38,42 +38,23 @@
       <v-col cols="12">
         <v-text-field v-model="name" label="이름"></v-text-field>
       </v-col>
-      <v-col cols="12" class="pb-0">
-        <v-text-field v-model="birth" label="생년월일"></v-text-field>
-      </v-col>
-      <v-col class="pt-0">
-        <p class="message">* 생년월일은 6자리로 입력해주세요.</p>
-      </v-col>
       <v-col cols="12">
-        <v-radio-group v-model="gender" row>
-          <v-radio color="#7429ff" label="남" value="radio-1"></v-radio>
-          <v-radio color="#7429ff" label="여" value="radio-2"></v-radio>
-        </v-radio-group>
-      </v-col>
-      <v-col cols="12">
-        <v-text-field v-model="mobile" label="핸드폰번호"></v-text-field>
+        <v-text-field v-model="phoneNumber" label="핸드폰번호"></v-text-field>
       </v-col>
       <v-col cols="8">
-        <v-text-field v-model="email" label="이메일"></v-text-field>
-      </v-col>
-      <v-col cols="4"
-        ><v-btn
-          large
-          block
-          color="#7429ff"
-          tile
-          class="btn white--text font-weight-bold"
-          >인증하기</v-btn
-        ></v-col
-      >
-      <v-col cols="8">
-        <v-text-field v-model="postNunber" label="우편번호"></v-text-field>
+        <v-text-field
+          v-model="addressInfo.zipNo"
+          label="우편번호"
+        ></v-text-field>
       </v-col>
       <v-col cols="4">
         <search-address v-on:searchComplete="searchAddressComplete($event)" />
       </v-col>
       <v-col cols="12">
-        <v-text-field v-model="address" label="상세주소"></v-text-field>
+        <v-text-field
+          v-model="addressInfo.street"
+          label="상세주소"
+        ></v-text-field>
       </v-col>
       <v-card outlined max-height="200" class="overflow-y-auto"
         ><v-card-text style="white-space: pre-line"> {{ policy }} </v-card-text>
@@ -91,14 +72,24 @@
       </v-col>
       <v-col cols="12" style="margin-bottom: 200px">
         <v-btn
+          v-if="!signUpCondition"
+          large
+          block
+          color="grey darken-1"
+          tile
+          class="white--text font-weight-bold"
+          >회원가입</v-btn
+        >
+        <v-btn
+          v-if="signUpCondition"
           large
           block
           color="#7429ff"
           tile
           class="white--text font-weight-bold"
-          @click="checkLogin()"
-          >회원가입</v-btn
-        >
+          @click="signUp()"
+          >회원가입
+        </v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -114,19 +105,38 @@ export default {
   },
   data() {
     return {
-      id: null,
+      accountId: null,
       password: null,
-      postNunber: null,
-      address: null,
+      addressInfo: {
+        zipNo: null,
+        street: null
+      },
       checkPassword: null,
       name: null,
-      birth: null,
-      gender: null,
-      mobile: null,
-      email: null,
+      phoneNumber: null,
       policy: signUpPolicy,
       agreeStatus: false
     };
+  },
+  computed: {
+    passwordCheck() {
+      return this.password
+        ? this.password === this.checkPassword
+          ? true
+          : false
+        : false;
+    },
+    signUpCondition() {
+      let result =
+        !!this.accountId &&
+        !!this.passwordCheck &&
+        !!this.name &&
+        !!this.phoneNumber &&
+        !!this.addressInfo.zipNo &&
+        !!this.addressInfo.street &&
+        !!this.agreeStatus;
+      return result;
+    }
   },
   methods: {
     checkAgree() {
@@ -137,9 +147,30 @@ export default {
       console.log('아이디중복확인클릭');
     },
     searchAddressComplete(event) {
-      this.postNunber = event.zonecode;
-      this.address = event.address;
+      this.addressInfo.zipNo = event.zonecode;
+      this.addressInfo.street = event.address;
       console.log(event);
+    },
+    signUp() {
+      const data = {
+        accountId: this.accountId,
+        password: this.password,
+        name: this.name,
+        phoneNumber: this.phoneNumber,
+        addressInfo: {
+          zipNo: this.zipNo,
+          street: this.street
+        }
+      };
+      console.log('회원가입클릭', data);
+      this.$store
+        .dispatch('signUp', data)
+        .then(() => {
+          console.log('회원가입성공');
+        })
+        .catch(() => {
+          console.log('회원가입실패');
+        });
     }
   }
 };

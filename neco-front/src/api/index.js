@@ -1,20 +1,10 @@
 import Axios from 'axios';
-
-const config = {
-  baseUrl: 'https://test'
-};
+// import Vue from 'vue';
 
 const api = {
-  test_api: `${config.baseUrl}/test`,
-  check_id_api: `${config.baseUrl}/api/members?accountId=`
+  signUp: '/api/join'
 };
 
-function test() {
-  return Axios.get(api.test_api);
+export function signUp(args) {
+  return Axios.post(api.signUp, args);
 }
-
-function FETCH_CHECK_ID_DUPLICATION(arg) {
-  return Axios.get(`${api.check_id_api}${arg}`);
-}
-
-export { test, FETCH_CHECK_ID_DUPLICATION };
