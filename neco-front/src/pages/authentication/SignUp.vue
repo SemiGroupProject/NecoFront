@@ -1,13 +1,30 @@
 <template>
   <v-container style="max-width: 460px">
+    <v-snackbar
+      v-model="snackbar.status"
+      :timeout="snackbar.timeout"
+      :color="snackbar.color"
+    >
+      {{ snackbar.text }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbar.status = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
     <v-row justify="center">
       <v-col style="margin-top: 100px" cols="12">
         <v-img class="mx-auto" src="@/img/logo.png" max-width="300" />
       </v-col>
-      <v-col cols="12" class="pb-0">
+      <v-col cols="8" class="pb-0">
         <v-text-field v-model="accountId" label="아이디"></v-text-field>
       </v-col>
-      <!-- <v-col cols="4"
+      <v-col cols="4"
         ><v-btn
           large
           block
@@ -17,7 +34,7 @@
           @click="checkDuplication()"
           >중복 확인</v-btn
         ></v-col
-      > -->
+      >
       <v-col class="pt-0">
         <p class="message">* 3~10자 영문 대 소문자, 숫자를 사용하세요.</p>
       </v-col>
@@ -96,7 +113,6 @@
 </template>
 
 <script>
-import { FETCH_CHECK_ID_DUPLICATION } from '@/api/index';
 import SearchAddress from '@/components/SearchAddress';
 import { signUpPolicy } from '../../static/policy.js';
 export default {
@@ -106,6 +122,7 @@ export default {
   data() {
     return {
       accountId: null,
+      checkDuplicateId: false,
       password: null,
       addressInfo: {
         zipNo: null,
@@ -115,7 +132,13 @@ export default {
       name: null,
       phoneNumber: null,
       policy: signUpPolicy,
-      agreeStatus: false
+      agreeStatus: false,
+      snackbar: {
+        status: false,
+        text: null,
+        color: null,
+        timeout: 3000
+      }
     };
   },
   computed: {
@@ -129,6 +152,7 @@ export default {
     signUpCondition() {
       let result =
         !!this.accountId &&
+        !!this.checkDuplicateId &&
         !!this.passwordCheck &&
         !!this.name &&
         !!this.phoneNumber &&
@@ -143,8 +167,20 @@ export default {
       this.agreeStatus = !this.agreeStatus;
     },
     checkDuplication() {
-      FETCH_CHECK_ID_DUPLICATION(this.id);
       console.log('아이디중복확인클릭');
+      this.$store.dispatch('checkId', this.accountId).then(({ result }) => {
+        if (result.available) {
+          this.snackbar.text = '사용 가능한 아이디 입니다.';
+          this.snackbar.color = 'primary';
+          this.snackbar.status = true;
+          this.checkDuplicateId = true;
+        } else {
+          this.snackbar.text = '이미 사용중인 아이디 입니다.';
+          this.snackbar.color = 'error';
+          this.snackbar.status = true;
+          this.checkDuplicateId = false;
+        }
+      });
     },
     searchAddressComplete(event) {
       this.addressInfo.zipNo = event.zonecode;
@@ -166,9 +202,16 @@ export default {
       this.$store
         .dispatch('signUp', data)
         .then(() => {
+          this.snackbar.text = '회원 가입 성공 하였습니다.';
+          this.snackbar.color = 'primary';
+          this.snackbar.status = true;
+          setTimeout(() => this.$router.push({ name: 'log-in' }), 2000);
           console.log('회원가입성공');
         })
         .catch(() => {
+          this.snackbar.text = '회원 가입 실패 하였습니다.';
+          this.snackbar.color = 'error';
+          this.snackbar.status = true;
           console.log('회원가입실패');
         });
     }

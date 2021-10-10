@@ -1,4 +1,4 @@
-import { signUp } from '../api/index.js';
+import { signUp, checkId } from '../api/index.js';
 
 export default {
   signUp(_, args) {
@@ -10,6 +10,13 @@ export default {
         .catch(() => {
           reject();
         });
+    });
+  },
+  checkId(_, params) {
+    return new Promise((resolve) => {
+      checkId(params).then(({ data }) => {
+        resolve(data);
+      });
     });
   }
 };
