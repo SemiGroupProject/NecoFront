@@ -1,11 +1,28 @@
 <template>
   <v-container style="max-width: 460px">
+    <v-snackbar
+      v-model="snackbar.status"
+      :timeout="snackbar.timeout"
+      :color="snackbar.color"
+    >
+      {{ snackbar.text }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbar.status = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
     <v-row justify="center">
       <v-col style="margin-top: 100px" cols="12">
         <v-img class="mx-auto" src="@/img/logo.png" max-width="300" />
       </v-col>
       <v-col cols="8" class="pb-0">
-        <v-text-field v-model="id" label="아이디"></v-text-field>
+        <v-text-field v-model="accountId" label="아이디"></v-text-field>
       </v-col>
       <v-col cols="4"
         ><v-btn
@@ -38,42 +55,23 @@
       <v-col cols="12">
         <v-text-field v-model="name" label="이름"></v-text-field>
       </v-col>
-      <v-col cols="12" class="pb-0">
-        <v-text-field v-model="birth" label="생년월일"></v-text-field>
-      </v-col>
-      <v-col class="pt-0">
-        <p class="message">* 생년월일은 6자리로 입력해주세요.</p>
-      </v-col>
       <v-col cols="12">
-        <v-radio-group v-model="gender" row>
-          <v-radio color="#7429ff" label="남" value="radio-1"></v-radio>
-          <v-radio color="#7429ff" label="여" value="radio-2"></v-radio>
-        </v-radio-group>
-      </v-col>
-      <v-col cols="12">
-        <v-text-field v-model="mobile" label="핸드폰번호"></v-text-field>
+        <v-text-field v-model="phoneNumber" label="핸드폰번호"></v-text-field>
       </v-col>
       <v-col cols="8">
-        <v-text-field v-model="email" label="이메일"></v-text-field>
-      </v-col>
-      <v-col cols="4"
-        ><v-btn
-          large
-          block
-          color="#7429ff"
-          tile
-          class="btn white--text font-weight-bold"
-          >인증하기</v-btn
-        ></v-col
-      >
-      <v-col cols="8">
-        <v-text-field v-model="postNunber" label="우편번호"></v-text-field>
+        <v-text-field
+          v-model="addressInfo.zipNo"
+          label="우편번호"
+        ></v-text-field>
       </v-col>
       <v-col cols="4">
         <search-address v-on:searchComplete="searchAddressComplete($event)" />
       </v-col>
       <v-col cols="12">
-        <v-text-field v-model="address" label="상세주소"></v-text-field>
+        <v-text-field
+          v-model="addressInfo.street"
+          label="상세주소"
+        ></v-text-field>
       </v-col>
       <v-card outlined max-height="200" class="overflow-y-auto"
         ><v-card-text style="white-space: pre-line"> {{ policy }} </v-card-text>
@@ -91,21 +89,30 @@
       </v-col>
       <v-col cols="12" style="margin-bottom: 200px">
         <v-btn
+          v-if="!signUpCondition"
+          large
+          block
+          color="grey darken-1"
+          tile
+          class="white--text font-weight-bold"
+          >회원가입</v-btn
+        >
+        <v-btn
+          v-if="signUpCondition"
           large
           block
           color="#7429ff"
           tile
           class="white--text font-weight-bold"
-          @click="checkLogin()"
-          >회원가입</v-btn
-        >
+          @click="signUp()"
+          >회원가입
+        </v-btn>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import { FETCH_CHECK_ID_DUPLICATION } from '@/api/index';
 import SearchAddress from '@/components/SearchAddress';
 import { signUpPolicy } from '../../static/policy.js';
 export default {
@@ -114,32 +121,99 @@ export default {
   },
   data() {
     return {
-      id: null,
+      accountId: null,
+      checkDuplicateId: false,
       password: null,
-      postNunber: null,
-      address: null,
+      addressInfo: {
+        zipNo: null,
+        street: null
+      },
       checkPassword: null,
       name: null,
-      birth: null,
-      gender: null,
-      mobile: null,
-      email: null,
+      phoneNumber: null,
       policy: signUpPolicy,
-      agreeStatus: false
+      agreeStatus: false,
+      snackbar: {
+        status: false,
+        text: null,
+        color: null,
+        timeout: 3000
+      }
     };
+  },
+  computed: {
+    passwordCheck() {
+      return this.password
+        ? this.password === this.checkPassword
+          ? true
+          : false
+        : false;
+    },
+    signUpCondition() {
+      let result =
+        !!this.accountId &&
+        !!this.checkDuplicateId &&
+        !!this.passwordCheck &&
+        !!this.name &&
+        !!this.phoneNumber &&
+        !!this.addressInfo.zipNo &&
+        !!this.addressInfo.street &&
+        !!this.agreeStatus;
+      return result;
+    }
   },
   methods: {
     checkAgree() {
       this.agreeStatus = !this.agreeStatus;
     },
     checkDuplication() {
-      FETCH_CHECK_ID_DUPLICATION(this.id);
       console.log('아이디중복확인클릭');
+      this.$store.dispatch('checkId', this.accountId).then(({ result }) => {
+        if (result.available) {
+          this.snackbar.text = '사용 가능한 아이디 입니다.';
+          this.snackbar.color = 'primary';
+          this.snackbar.status = true;
+          this.checkDuplicateId = true;
+        } else {
+          this.snackbar.text = '이미 사용중인 아이디 입니다.';
+          this.snackbar.color = 'error';
+          this.snackbar.status = true;
+          this.checkDuplicateId = false;
+        }
+      });
     },
     searchAddressComplete(event) {
-      this.postNunber = event.zonecode;
-      this.address = event.address;
+      this.addressInfo.zipNo = event.zonecode;
+      this.addressInfo.street = event.address;
       console.log(event);
+    },
+    signUp() {
+      const data = {
+        accountId: this.accountId,
+        password: this.password,
+        name: this.name,
+        phoneNumber: this.phoneNumber,
+        addressInfo: {
+          zipNo: this.zipNo,
+          street: this.street
+        }
+      };
+      console.log('회원가입클릭', data);
+      this.$store
+        .dispatch('signUp', data)
+        .then(() => {
+          this.snackbar.text = '회원 가입 성공 하였습니다.';
+          this.snackbar.color = 'primary';
+          this.snackbar.status = true;
+          setTimeout(() => this.$router.push({ name: 'log-in' }), 2000);
+          console.log('회원가입성공');
+        })
+        .catch(() => {
+          this.snackbar.text = '회원 가입 실패 하였습니다.';
+          this.snackbar.color = 'error';
+          this.snackbar.status = true;
+          console.log('회원가입실패');
+        });
     }
   }
 };

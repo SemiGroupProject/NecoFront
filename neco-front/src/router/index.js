@@ -66,6 +66,7 @@ const routes = [
     component: () => import('@/layouts/authentication/Index'),
     children: [
       {
+        name: 'log-in',
         path: '/log-in',
         component: () => import('@/pages/authentication/LogIn.vue')
       },
