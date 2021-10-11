@@ -2,12 +2,25 @@
   <v-container fluid>
     <v-row class="top-item first text-end" justify="center">
       <v-col cols="9">
-        <v-btn class="font-weight-bold" small text href="/log-in"
+        <v-btn
+          class="font-weight-bold"
+          v-if="!checkLogin"
+          small
+          text
+          href="/log-in"
           >로그인/회원가입</v-btn
         >
-        <v-btn class="font-weight-bold" small text href="/my-store"
+        <v-btn
+          class="font-weight-bold"
+          v-if="checkLogin"
+          small
+          text
+          href="/my-store"
           >내상점</v-btn
         >
+        <template v-if="checkLogin">
+          <logout></logout>
+        </template>
       </v-col>
     </v-row>
     <v-row class="top-item second mt-10" justify="center">
@@ -58,7 +71,20 @@
 </template>
 
 <script>
-export default {};
+import Logout from '@/components/Logout.vue';
+export default {
+  components: {
+    Logout
+  },
+  computed: {
+    checkLogin() {
+      return this.$store.state.id ? true : false;
+    }
+  },
+  mounted() {
+    console.log(this.$store.state.id);
+  }
+};
 </script>
 
 <style>
