@@ -3,7 +3,8 @@ import Axios from 'axios';
 const api = {
   signUp: '/api/join',
   checkId: '/api/members',
-  login: '/api/login'
+  login: '/api/login',
+  categoryList: '/api/category'
 };
 
 function signUp(args) {
@@ -22,4 +23,8 @@ function login(args) {
   return Axios.post(api.login, args);
 }
 
-export { signUp, checkId, login };
+function categoryList() {
+  return Axios.get(api.categoryList);
+}
+
+export { signUp, checkId, login, categoryList };

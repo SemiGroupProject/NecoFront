@@ -57,6 +57,7 @@ const routes = [
         component: () => import('@/pages/find/FindId.vue')
       },
       {
+        name: 'find-password',
         path: '/find-password',
         component: () => import('@/pages/find/FindPassword.vue')
       }
@@ -72,6 +73,7 @@ const routes = [
         component: () => import('@/pages/authentication/LogIn.vue')
       },
       {
+        name: 'sign-up',
         path: '/sign-up',
         component: () => import('@/pages/authentication/SignUp.vue')
       },
@@ -106,7 +108,11 @@ router.beforeEach((to, from, next) => {
   if (token !== null) {
     next();
   } else {
-    if (to.name == 'log-in') {
+    if (
+      to.name == 'log-in' ||
+      to.name == 'sign-up' ||
+      to.name == 'find-password'
+    ) {
       next();
     } else if (to.name == 'MainRecommend') {
       next();

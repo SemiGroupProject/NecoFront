@@ -13,7 +13,7 @@ Object.defineProperty(Vue.prototype, '$http', {
 function enhanceAccessToeken() {
   const token = Vue.$VueCookies.get('token');
   if (token) {
-    Axios.defaults.headers.common['authorization'] = token;
+    Axios.defaults.headers.common['authorization'] = `Bearer ${token}`;
     const decoded_token = jwt_decode(token);
     store.commit('SET_ID', decoded_token.sub);
   }
