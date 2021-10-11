@@ -19,7 +19,7 @@
           @click="checkLogin()"
           >로그인</v-btn
         >
-        <v-btn text class="my-5" @click="changeLoginStatus()">
+        <!-- <v-btn text class="my-5" @click="changeLoginStatus()">
           <v-icon v-if="!loginStatus" left color="#7429ff"
             >mdi-checkbox-blank-circle-outline</v-icon
           >
@@ -27,16 +27,16 @@
             >mdi-checkbox-marked-circle-outline</v-icon
           >
           로그인 상태 유지</v-btn
-        >
+        > -->
       </v-col>
       <v-col cols="12" align="center">
         <v-btn text href="/find-id">아이디 찾기</v-btn> |
         <v-btn text href="/find-password">비밀번호 찾기</v-btn> |
         <v-btn text href="/sign-up">회원 가입</v-btn>
       </v-col>
-      <v-col>
+      <!-- <v-col>
         <v-btn outlined large block>Sign in with Google</v-btn>
-      </v-col>
+      </v-col> -->
     </v-row>
   </v-container>
 </template>
@@ -57,10 +57,29 @@ export default {
     },
     checkLogin() {
       console.log('aaa');
-      this.$store.commit('setUserId', this.id);
-      this.$store.dispatch('TEST');
-      this.loginError = true;
+      this.$store
+        .dispatch('login', {
+          accountId: this.id,
+          password: this.password
+        })
+        .then(() => {
+          this.$router.push({ name: 'MainRecommend' });
+          console.log('로그인성공');
+        })
+        .catch(() => {
+          this.loginError = true;
+        });
     }
+  },
+  mounted() {
+    // let a =
+    //   'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDIiLCJyb2xlcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNjMzOTEzODE1LCJleHAiOjE2MzM5MTc0MTV9.1Coz-cjCJMurcxq93_k08c-aAmOUiOUZyjmsTnYT7sg';
+    // let b = jwt_decode(a);
+    // console.log(b);
+    // // console.log(this);
+    // this.$VueCookies.set('token', b);
+    // // const cookie = this.$VueCookies.get('token');
+    // // console.log(cookie); //testValue
   }
 };
 </script>
