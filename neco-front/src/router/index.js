@@ -99,4 +99,21 @@ const router = new VueRouter({
   routes
 });
 
+router.beforeEach((to, from, next) => {
+  document.title = '니꼬내꼬';
+  const token = Vue.$VueCookies.get('token');
+  console.log(token);
+  if (token !== null) {
+    next();
+  } else {
+    if (to.name == 'log-in') {
+      next();
+    } else if (to.name == 'MainRecommend') {
+      next();
+    } else {
+      next({ name: 'log-in' });
+    }
+  }
+});
+
 export default router;
