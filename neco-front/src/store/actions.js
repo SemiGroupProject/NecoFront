@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import jwt_decode from 'jwt-decode';
-import { signUp, checkId, login } from '../api/index.js';
+import { signUp, checkId, login, categoryList } from '../api/index.js';
 
 export default {
   signUp(_, args) {
@@ -34,6 +34,13 @@ export default {
         .catch(() => {
           reject();
         });
+    });
+  },
+  categoryList() {
+    return new Promise((resolve) => {
+      categoryList().then(({ data }) => {
+        resolve(data.result);
+      });
     });
   }
 };
