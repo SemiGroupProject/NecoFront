@@ -108,7 +108,7 @@
           ><v-text-field outlined dense></v-text-field
         ></v-col>
       </v-row>
-      <v-row class="divider">
+      <!-- <v-row class="divider">
         <v-col cols="1" style="height: 60px"
           ><p class="text-subtitle-2 mt-1">상품 상태</p></v-col
         >
@@ -121,7 +121,7 @@
               value="radio-2"
             ></v-radio> </v-radio-group
         ></v-col>
-      </v-row>
+      </v-row> -->
       <v-row class="divider">
         <v-col cols="1" style="height: 60px"
           ><p class="text-subtitle-2 mt-1">배송 가격</p></v-col
