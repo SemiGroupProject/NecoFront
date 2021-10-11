@@ -193,6 +193,9 @@ export default {
       console.log('adad');
     },
     clickRegister() {
+      this.$store.dispatch('registItem', {}).then((response) => {
+        console.log(response);
+      });
       console.log('register');
     }
   },
