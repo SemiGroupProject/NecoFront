@@ -10,6 +10,7 @@ const routes = [
     children: [
       {
         path: '/',
+        name: 'MainRecommend',
         component: () => import('@/pages/MainRecommend.vue')
       },
       {
