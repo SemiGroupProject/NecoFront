@@ -4,7 +4,8 @@ const api = {
   signUp: '/api/join',
   checkId: '/api/members',
   login: '/api/login',
-  categoryList: '/api/category'
+  categoryList: '/api/category',
+  registItem: '/api/item'
 };
 
 function signUp(args) {
@@ -27,4 +28,8 @@ function categoryList() {
   return Axios.get(api.categoryList);
 }
 
-export { signUp, checkId, login, categoryList };
+function registItem(args) {
+  return Axios.post(api.registItem, args);
+}
+
+export { signUp, checkId, login, categoryList, registItem };
