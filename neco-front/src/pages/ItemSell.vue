@@ -1,12 +1,29 @@
 <template>
   <v-main style="margin: 0 12.5%">
     <v-container fluid>
+      <v-snackbar
+        v-model="snackbar.status"
+        :timeout="snackbar.timeout"
+        :color="snackbar.color"
+      >
+        {{ snackbar.text }}
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            color="white"
+            text
+            v-bind="attrs"
+            @click="snackbar.status = false"
+          >
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
       <h2>상품등록</h2>
       <v-row style="height: 60px">
         <v-col cols="1"><p class="text-subtitle-2 mt-1">카테고리</p></v-col>
         <v-col cols="2"
           ><v-select
-            :items="category1"
+            :items="category1NameList"
             v-model="selectCategory1"
             label="대분류"
             dense
@@ -15,7 +32,7 @@
         ></v-col>
         <v-col cols="2"
           ><v-select
-            :items="category2"
+            :items="category2NameList"
             v-model="selectCategory2"
             label="소분류"
             dense
@@ -38,7 +55,7 @@
           ><p class="text-subtitle-2 mt-1">제목</p></v-col
         >
         <v-col cols="11" style="height: 60px"
-          ><v-text-field outlined dense></v-text-field
+          ><v-text-field outlined dense v-model="title"></v-text-field
         ></v-col>
         <v-col cols="1" class="pt-0"></v-col>
         <v-col class="pt-0">
@@ -49,6 +66,7 @@
         <v-col cols="1"><p class="text-subtitle-2 mt-1">내용</p></v-col>
         <v-col cols="11"
           ><v-textarea
+            v-model="content"
             placeholder="내용을 입력하세요"
             counter
             auto-grow
@@ -90,7 +108,7 @@
           ><p class="text-subtitle-2 mt-1">가격</p></v-col
         >
         <v-col cols="5" style="height: 60px"
-          ><v-text-field outlined dense></v-text-field
+          ><v-text-field outlined dense v-model="price"></v-text-field
         ></v-col>
       </v-row>
       <v-row class="divider">
@@ -105,10 +123,10 @@
         >
         <v-col cols="1" style="height: 60px"></v-col>
         <v-col cols="5" style="height: 60px"
-          ><v-text-field outlined dense></v-text-field
+          ><v-text-field outlined dense v-model="tradeArea"></v-text-field
         ></v-col>
       </v-row>
-      <v-row class="divider">
+      <!-- <v-row class="divider">
         <v-col cols="1" style="height: 60px"
           ><p class="text-subtitle-2 mt-1">상품 상태</p></v-col
         >
@@ -121,24 +139,34 @@
               value="radio-2"
             ></v-radio> </v-radio-group
         ></v-col>
-      </v-row>
+      </v-row> -->
       <v-row class="divider">
         <v-col cols="1" style="height: 60px"
           ><p class="text-subtitle-2 mt-1">배송 가격</p></v-col
         >
         <v-col cols="5" style="height: 60px"
-          ><v-radio-group v-model="status" class="mt-0" row>
-            <v-radio color="#7429ff" label="포함" value="radio-1"></v-radio>
+          ><v-radio-group v-model="shippingPrice" class="mt-0" row>
+            <v-radio color="#7429ff" label="포함" value="yes"></v-radio>
             <v-radio
               color="#7429ff"
               label="미포함"
-              value="radio-2"
+              value="no"
             ></v-radio> </v-radio-group
         ></v-col>
       </v-row>
       <v-row class="mb-10">
-        <v-col align="center"
-          ><v-btn
+        <v-col align="center">
+          <v-btn
+            v-if="!checkRegisterCondition"
+            large
+            color="#BDBDBD"
+            tile
+            width="200"
+            class="grey--text font-weight-bold"
+            >등록하기</v-btn
+          >
+          <v-btn
+            v-else
             large
             color="#7429ff"
             tile
@@ -157,18 +185,58 @@
 export default {
   data() {
     return {
+      title: null,
+      content: null,
+      price: null,
+      tradeArea: null,
+      shippingPrice: 'yes',
       selectCategory1: null,
       selectCategory2: null,
       category1: [],
       category2: [],
-      // category2: {
-      //   의류: ['남성의류', '여성의류', '신발'],
-      //   전자제품: ['컴퓨터', '모바일제품', '카메라', '가전제품'],
-      //   잡화: ['도서', '티켓', '음반', '악세사리'],
-      //   생활용품: ['주방용품', '식품', '가구']
-      // },
-      status: null
+      itemImages: [
+        {
+          url: 'url',
+          fileName: 'fileName'
+        }
+      ],
+      snackbar: {
+        status: false,
+        text: null,
+        color: null,
+        timeout: 3000
+      }
     };
+  },
+  computed: {
+    category1NameList() {
+      return this.category1.map((x) => x.categoryName);
+    },
+    category2NameList() {
+      const parentId = this.selectCategory1
+        ? this.category1.find((x) => x.categoryName == this.selectCategory1).id
+        : null;
+      return parentId
+        ? this.category2
+            .filter((x) => x.parent == parentId)
+            .map((x) => x.categoryName)
+        : [];
+    },
+    categoryId() {
+      return this.selectCategory2
+        ? this.category2.find((x) => x.categoryName == this.selectCategory2).id
+        : null;
+    },
+    checkRegisterCondition() {
+      return !!this.title &&
+        !!this.content &&
+        !!this.price &&
+        !!this.categoryId &&
+        !!this.itemImages &&
+        !!this.tradeArea
+        ? true
+        : false;
+    }
   },
   methods: {
     loadFile(event) {
@@ -193,18 +261,39 @@ export default {
       console.log('adad');
     },
     clickRegister() {
+      const item = {
+        title: this.title,
+        content: this.content,
+        price: this.price,
+        categoryId: this.categoryId,
+        itemImages: this.itemImages,
+        tradeArea: this.tradeArea,
+        shippingPrice: this.shippingPrice
+      };
+      this.$store
+        .dispatch('registItem', item)
+        .then((response) => {
+          this.snackbar.text = '상품등록을 성공하였습니다.';
+          this.snackbar.color = 'primary';
+          this.snackbar.status = true;
+          setTimeout(() => this.$router.push({ name: 'MainRecommend' }), 2000);
+          console.log(response);
+        })
+        .catch((e) => {
+          console.log('등록실패');
+          this.snackbar.text = '상품등록을 실패하였습니다.';
+          this.snackbar.color = 'error';
+          this.snackbar.status = true;
+          console.log(e);
+        });
       console.log('register');
     }
   },
   mounted() {
     this.$store.dispatch('categoryList').then((response) => {
-      const category1 = response
-        .filter((x) => x.level == 1)
-        .map((x) => x.categoryName);
+      const category1 = response.filter((x) => x.level == 1);
       this.category1 = category1;
-      const category2 = response
-        .filter((x) => x.level == 2)
-        .map((x) => x.categoryName);
+      const category2 = response.filter((x) => x.level == 2);
       this.category2 = category2;
     });
   }
