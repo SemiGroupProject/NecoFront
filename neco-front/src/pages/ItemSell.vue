@@ -6,7 +6,7 @@
         <v-col cols="1"><p class="text-subtitle-2 mt-1">카테고리</p></v-col>
         <v-col cols="2"
           ><v-select
-            :items="category1"
+            :items="category1NameList"
             v-model="selectCategory1"
             label="대분류"
             dense
@@ -15,7 +15,7 @@
         ></v-col>
         <v-col cols="2"
           ><v-select
-            :items="category2"
+            :items="category2NameList"
             v-model="selectCategory2"
             label="소분류"
             dense
@@ -161,14 +161,23 @@ export default {
       selectCategory2: null,
       category1: [],
       category2: [],
-      // category2: {
-      //   의류: ['남성의류', '여성의류', '신발'],
-      //   전자제품: ['컴퓨터', '모바일제품', '카메라', '가전제품'],
-      //   잡화: ['도서', '티켓', '음반', '악세사리'],
-      //   생활용품: ['주방용품', '식품', '가구']
-      // },
       status: null
     };
+  },
+  computed: {
+    category1NameList() {
+      return this.category1.map((x) => x.categoryName);
+    },
+    category2NameList() {
+      const parentId = this.selectCategory1
+        ? this.category1.find((x) => x.categoryName == this.selectCategory1).id
+        : null;
+      return parentId
+        ? this.category2
+            .filter((x) => x.parent == parentId)
+            .map((x) => x.categoryName)
+        : [];
+    }
   },
   methods: {
     loadFile(event) {
@@ -201,13 +210,9 @@ export default {
   },
   mounted() {
     this.$store.dispatch('categoryList').then((response) => {
-      const category1 = response
-        .filter((x) => x.level == 1)
-        .map((x) => x.categoryName);
+      const category1 = response.filter((x) => x.level == 1);
       this.category1 = category1;
-      const category2 = response
-        .filter((x) => x.level == 2)
-        .map((x) => x.categoryName);
+      const category2 = response.filter((x) => x.level == 2);
       this.category2 = category2;
     });
   }
