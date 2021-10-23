@@ -52,11 +52,11 @@ export default {
   registItem(_, args) {
     return new Promise((resolve, reject) => {
       registItem(args)
-        .then(() => {
-          resolve();
+        .then((response) => {
+          resolve(response);
         })
-        .catch(() => {
-          reject();
+        .catch((e) => {
+          reject(e);
         });
     });
   }
