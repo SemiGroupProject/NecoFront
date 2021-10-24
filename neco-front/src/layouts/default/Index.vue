@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <top-bar />
-    <v-main>
+    <top-bar class="top" />
+    <v-main class="main">
       <router-view />
     </v-main>
     <bottom-bar />
@@ -20,4 +20,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.top {
+  z-index: 5;
+}
+.main {
+  position: relative;
+  z-index: 1;
+}
+</style>

@@ -61,8 +61,28 @@
       <v-col cols="9">
         <v-row>
           <v-toolbar class="elevation-0">
-            <v-app-bar-nav-icon color="#7429ff"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon
+              color="#7429ff"
+              @click="clickLook"
+            ></v-app-bar-nav-icon>
             <v-toolbar-title>전체메뉴 보기</v-toolbar-title>
+            <div class="category1" v-if="isCategory">
+              <div v-for="category in category1" :key="category.categoryName">
+                <button
+                  class="category1-btn"
+                  @click="selectCategory1 = category.categoryName"
+                >
+                  {{ category.categoryName }}
+                </button>
+              </div>
+            </div>
+            <div class="category2" v-if="selectCategory1 && isCategory">
+              <div v-for="name in category2NameList" :key="name">
+                <button class="category2-btn" @click="clickCategory2(name)">
+                  {{ name }}
+                </button>
+              </div>
+            </div>
           </v-toolbar>
         </v-row>
       </v-col>
@@ -73,16 +93,52 @@
 <script>
 import Logout from '@/components/Logout.vue';
 export default {
+  data() {
+    return {
+      isCategory: false,
+      category1: [],
+      category2: [],
+      selectCategory1: null,
+      selectCategory2: null
+    };
+  },
   components: {
     Logout
   },
   computed: {
     checkLogin() {
       return this.$store.state.id ? true : false;
+    },
+    category2NameList() {
+      const parentId = this.selectCategory1
+        ? this.category1.find((x) => x.categoryName == this.selectCategory1).id
+        : null;
+      return parentId
+        ? this.category2
+            .filter((x) => x.parent == parentId)
+            .map((x) => x.categoryName)
+        : [];
+    }
+  },
+  methods: {
+    clickLook() {
+      this.isCategory = !this.isCategory;
+      this.selectCategory1 = null;
+      this.selectCategory2 = null;
+    },
+    clickCategory2(target) {
+      this.isCategory = !this.isCategory;
+      this.selectCategory2 = target;
     }
   },
   mounted() {
     console.log(this.$store.state.id);
+    this.$store.dispatch('categoryList').then((response) => {
+      const category1 = response.filter((x) => x.level == 1);
+      this.category1 = category1;
+      const category2 = response.filter((x) => x.level == 2);
+      this.category2 = category2;
+    });
   }
 };
 </script>
@@ -119,5 +175,32 @@ export default {
   color: #7429ff;
   padding: 0px !important;
   font-size: 16px !important;
+}
+.category1 {
+  position: fixed;
+  width: 100px;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+  background-color: white;
+  left: 12px;
+  top: 65px;
+}
+.category2 {
+  position: fixed;
+  width: 130px;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+  background-color: white;
+  left: 112px;
+  top: 65px;
+}
+.category1 > div,
+.category2 > div {
+  border-bottom: 1px solid #eee;
+}
+.category1-btn,
+.category2-btn {
+  margin: 8px;
+  margin-left: 15px;
 }
 </style>
